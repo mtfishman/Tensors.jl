@@ -7,6 +7,9 @@ include("itensor.jl")
 TA = Tensor(Dense([1 2; 3 4]),(2,2))
 TB = Tensor(Diag([1,2]),(2,2))
 
+@show TA[1,2] == 2
+@show TB[2,2] == 2
+@show TB[1,2] == 0
 @show permutedims(TA,(2,1))
 @show TC = TA+TB
 @show add_permute(TA,TB,(2,1))

@@ -4,8 +4,6 @@ struct Dense <: TensorStorage
   Dense(A::Array) = new(vec(A))
 end
 
-data(D::Dense) = D.data
-
 Base.:+(D1::Dense,D2::Dense) = Dense(data(D1)+data(D2))
 
 #
@@ -22,7 +20,8 @@ function Base.setindex!(T::Tensor{<:Dense}, val, inds::Int...)
 end
 
 function Base.permutedims(T::Tensor{<:Dense},perm)
-  Tp_store = Dense(vec(permutedims(reshape(data(store(T)),size(T)),perm)))
+  # Use Julia's permutedims for arrays
+  Tp_store = Dense(permutedims(reshape(data(store(T)),size(T)),perm))
   Tp_inds = genperm(inds(T),perm)  
   return Tensor(Tp_store,Tp_inds)
 end

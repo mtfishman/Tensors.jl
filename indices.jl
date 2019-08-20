@@ -27,5 +27,10 @@ IndexSet{N} = NTuple{N,Index}
 IndexSet(is::Vararg{Index,N}) where {N} = tuple(is)
 
 dims(is::IndexSet{N}) where {N} = ntuple(n -> dim(is[n]),Val(N))
+
+#
+# dims must be defined on any type being used
+# as indices
+#
 dims(is::NTuple{N,Int}) where {N} = is
 
